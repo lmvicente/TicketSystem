@@ -1,0 +1,12 @@
+td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+}
+
+.stretched-link::after, .stretched-link:hover {
+    content: "";
+    cursor: pointer;
+    background-color: rgb(197, 200, 207);
+  }
