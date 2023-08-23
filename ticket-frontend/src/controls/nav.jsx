@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import './nav.css'
 import { Link } from "react-router-dom"
-
+import PrimaryBtn from './primarybtn'
+import SecondaryBtn from './secondarybtn'
 
 function Nav() {
 

@@ -13,7 +13,7 @@ const db = mysql.createConnection({
 })
 
 
-// app.use(express.json())
+app.use(express.json())
 app.use(cors())
 
 app.get("/", (req, res) => {
@@ -30,15 +30,38 @@ app.get("/tickets", (req, res) => {
     })
 })
 
-app.post("/newtickets"), (req, res) => {
-    const q = "";
-    const values = []
+app.post("/newtickets", (req, res) => {
+    const q = "INSERT INTO alltickets (`Title`, `Description`, `CreatedBy`, `AssignedTo`, `CreatedDate`,`DueDate`, `Status`, `Priority`, `Category`) VALUES (?)";
+    const values = [
+
+        req.body.Title,
+        req.body.Description,
+        req.body.CreatedBy,
+        req.body.AssignedTo,
+        req.body.CreatedDate,
+        req.body.DueDate,
+        req.body.Status,
+        req.body.Priority,
+        req.body.Category
+    ]
 
     db.query(q, [values], (err, data) => {
         if (err) return res.json(err);
+        // if(err) return alert(error);
         return res.json("Ticket successfully created.")
     })
-}
+});
+
+app.put("/tickets/:id", (req, res) => {
+    const ticketId = req.params.id;
+    const q = "INSERT INTO `ticket_system`.`alltickets` (`ID`, `Title`, `Description`, `CreatedBy`, `AssignedTo`, `CreatedDate`,`DueDate`, `Status`, `Priority`, `Category`) VALUES () ";
+
+    const values = [
+        req.body.title,
+        req.body.category
+    ]
+
+})
 
 app.listen(8800, () => {
     console.log("connection successful");
