@@ -4,6 +4,7 @@ import PrimaryBtn from '../controls/primarybtn';
 import SecondaryBtn from '../controls/secondarybtn';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import moment from 'moment';
 
 const NewTicket = () => {
 
@@ -12,17 +13,21 @@ const NewTicket = () => {
         Description: "",
         CreatedBy: "",
         AssignedTo: 0,
-        CreatedDate: Date.now(),
+        CreatedDate: moment.utc(Date.now()).format('YYYY-MM-DD'),
         DueDate: "",
         Status: 1,
         Priority: 1,
-        Category: ""
+        Category: 1
     
     });
+
+
 
     const handleChange= (e) => {
         setTicket(prev=>({...prev, [e.target.name]: e.target.value}))
     };
+
+    // console.log(moment.utc(Date.now()).format('YYYY-MM-DD'));
 
     const navigate = useNavigate();
 
@@ -30,7 +35,7 @@ const NewTicket = () => {
         e.preventDefault();
         try {
             await axios.post("http://127.0.0.1:8800/newtickets",ticket);
-            alert("test")
+            // alert("test")
             navigate('/');
         } catch(err) {
             console.log(err);
@@ -64,7 +69,7 @@ const NewTicket = () => {
             <span className="after:content-['*'] after:ml-0.5 after:text-red-500 block  font-medium">
                 Ticket Category
             </span>
-            <select name="category" onChange={handleChange} className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full sm:text-sm focus:ring-1'>
+            <select name="Category" onChange={handleChange} className='mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full sm:text-sm focus:ring-1'>
                 <option defaultValue disabled >Please select a category ...</option>    
                 <option value="1">General</option>
                 <option value="2">Incident Report</option>

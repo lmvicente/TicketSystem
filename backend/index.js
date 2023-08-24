@@ -46,13 +46,24 @@ app.post("/newtickets", (req, res) => {
     ]
 
     db.query(q, [values], (err, data) => {
-        if (err) return res.json(err);
-        // if(err) return alert(error);
+        // if (err) return res.json(err);
+        if(err) return console.log(err);
         return res.json("Ticket successfully created.")
     })
 });
 
-app.put("/tickets/:id", (req, res) => {
+app.get("/ticketdetails/:id", (req, res) => {
+    const ticketId = req.params.id;
+    const q = "SELECT ID, Title, Description, CreatedBy, technicians.FirstName, technicians.LastName,  Category, CreatedDate, DueDate, Status, Priority, Category FROM alltickets JOIN technicians ON technicians.TechID = alltickets.AssignedTo WHERE alltickets.ID = ?"; 
+    
+    db.query(q, [ticketId], (err, data) => {
+        // if (err) return res.json(err);
+        if(err) return console.log(err);
+        return res.json(data)
+    })
+})
+
+app.put("/ticketsdetails/:id", (req, res) => {
     const ticketId = req.params.id;
     const q = "INSERT INTO `ticket_system`.`alltickets` (`ID`, `Title`, `Description`, `CreatedBy`, `AssignedTo`, `CreatedDate`,`DueDate`, `Status`, `Priority`, `Category`) VALUES () ";
 
@@ -60,6 +71,12 @@ app.put("/tickets/:id", (req, res) => {
         req.body.title,
         req.body.category
     ]
+
+    db.query(q, [values], (err, data) => {
+        // if (err) return res.json(err);
+        if(err) return console.log(err);
+        return res.json("Ticket successfully created.")
+    })
 
 })
 

@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import './App.css'
-import Tickets from './controls/tickets'
+import Tickets from './pages/tickets'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import NewTicket from './pages/newticket'
 import FourOhFour from './pages/404'
-
+import TicketDetails from './pages/ticketdetails'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +18,7 @@ function App() {
         <Routes>
         <Route path="/newticket" element={<NewTicket />}/>
         <Route path="/" element={<Tickets />}/>
+        <Route path="/ticketdetails/:id" element={<TicketDetails />}/>
         <Route path="*" element={<FourOhFour />}/>
         </Routes>
         </BrowserRouter>
